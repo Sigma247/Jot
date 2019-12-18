@@ -8,15 +8,11 @@ use Tests\TestCase;
 
 class ContactsTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    /**@test */
+    public function a_contact_can_be_added()
     {
-        $response = $this->get('/');
+        $this->post('/api/contacts',['name' => 'Test Name']);
 
-        $response->assertStatus(200);
+        $this->assertCount(1,Contact::all());
     }
 }
