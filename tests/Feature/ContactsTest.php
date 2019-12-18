@@ -2,16 +2,25 @@
 
 namespace Tests\Feature;
 
+use App\Contact;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ContactsTest extends TestCase
 {
-    /**@test */
-    public function a_contact_can_be_added()
+    use RefreshDatabase;
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+  
+    public function testAddContact()
     {
-        $this->post('/api/contacts',['name' => 'Test Name']);
+        $this->withoutExceptionHandling();
+        $this->post('api/contact',['name' => 'Test Name']);
 
         $this->assertCount(1,Contact::all());
     }
