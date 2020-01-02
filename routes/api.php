@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Http\Request;
 
 /*
@@ -18,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('contact', 'ContactController');
+// Route::get('/contact/{contact}', 'ContactController@show');

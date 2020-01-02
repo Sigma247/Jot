@@ -35,16 +35,7 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-
-        $data = request()->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'birthday' => 'required',
-            'company' => 'required',
-        ]);
-
-
-        Contact::create($data);
+        Contact::create($this->ValidateData());
     }
 
     /**
@@ -53,9 +44,9 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Contact $contact)
     {
-        //
+        return $contact;
     }
 
     /**
@@ -76,9 +67,9 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Contact $contact)
     {
-        //
+        $contact->update($this->ValidateData());
     }
 
     /**
@@ -87,8 +78,19 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
+    }
+
+    private function ValidateData()
+    {
+        return  request()->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'birthday' => 'required',
+            'company' => 'required',
+        ]);
+
     }
 }

@@ -42,6 +42,42 @@ class ContactsTest extends TestCase
 
     public function testGetContact()
     {
+        $contact = factory(Contact::class)->create();
+
+        $response = $this->get('/api/contact/'.$contact->id);
+        $response->assertJson([
+            'name' => $contact->name,
+            'email' => $contact->email,
+            'birthday' => $contact->birthday,
+            'company' => $contact->company
+        ]);
+    }
+
+    public function testPatchContact()
+    {
+
+        $this->withExceptionHandling();
+
+        $contact = factory(Contact::class)->create();
+
+        $response = $this->patch('/api/contact/'.$contact->id,$this->data());
+
+        $contact = $contact->fresh();
+
+        $this->assertEquals($this->data()['name'],$contact->name);
+        $this->assertEquals($this->data()['email'],$contact->email);
+        $this->assertEquals($this->data()['birthday'],$contact->birthday);
+        $this->assertEquals($this->data()['company'],$contact->company);
+    }
+
+    public function testDeleteContact()
+    {
+        $this->withExceptionHandling();
+        $contact = factory(Contact::class)->create();
+
+        $response =$this->delete('/api/contact/'.$contact->id);
+
+        $this->assertCount(0,Contact::all());
 
     }
 
