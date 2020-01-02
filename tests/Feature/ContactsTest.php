@@ -16,7 +16,7 @@ class ContactsTest extends TestCase
      *
      * @return void
      */
-  
+
     public function testMustBeAnEmail()
     {
         // $this->withoutExceptionHandling();
@@ -38,6 +38,11 @@ class ContactsTest extends TestCase
         $response->assertSessionHasErrors($field);
         $this->assertCount(0,Contact::all());
         });
+    }
+
+    public function testGetContact()
+    {
+
     }
 
     private function data()
